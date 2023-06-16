@@ -29,31 +29,143 @@ body{
     text-align: center;
     transform: rotate(var(--rotation));
     color: white;
-    font-size: 2rem;
+    font-size: 1rem;
 }
+
+.main-nr {
+    font-size: 2rem !important;
+}
+
+
+.clock .numberM1 {--rotation: 6deg;}
+.numberM1 .span {transform: rotate(-6deg);}
+.clock .numberM2 {--rotation: 12deg;}
+.numberM2 .span {transform: rotate(-12deg);}
+.clock .numberM3 {--rotation: 18deg;}
+.numberM3 .span {transform: rotate(-18deg);}
+.clock .numberM4 {--rotation: 24deg;}
+.numberM4 .span {transform: rotate(-24deg);}
 
 .clock .number1 {--rotation: 30deg; }
 .number1 .span {transform: rotate(-30deg);}
+.clock .numberM6 {--rotation: 36deg;}
+.numberM6 .span {transform: rotate(-36deg);}
+.clock .numberM7 {--rotation: 42deg;}
+.numberM7 .span {transform: rotate(-42deg);}
+.clock .numberM8 {--rotation: 48deg;}
+.numberM8 .span {transform: rotate(-48deg);}
+.clock .numberM9 {--rotation: 54deg;}
+.numberM9 .span {transform: rotate(-54deg);}
+
 .clock .number2 {--rotation: 60deg; }
 .number2 .span {transform: rotate(-60deg);}
+.clock .numberM11 {--rotation: 66deg;}
+.numberM11 .span {transform: rotate(-66deg);}
+.clock .numberM12 {--rotation: 72deg;}
+.numberM12 .span {transform: rotate(-72deg);}
+.clock .numberM13 {--rotation: 78deg;}
+.numberM13 .span {transform: rotate(-78deg);}
+.clock .numberM14 {--rotation: 84deg;}
+.numberM14 .span {transform: rotate(-84deg);}
+
 .clock .number3 {--rotation: 90deg; }
 .number3 .span {transform: rotate(-90deg);}
+.clock .numberM16 {--rotation: 96deg;}
+.numberM16 .span {transform: rotate(-96deg);}
+.clock .numberM17 {--rotation: 102deg;}
+.numberM17 .span {transform: rotate(-102deg);}
+.clock .numberM18 {--rotation: 108deg;}
+.numberM18 .span {transform: rotate(-108deg);}
+.clock .numberM19 {--rotation: 114deg;}
+.numberM19 .span {transform: rotate(-114deg);}
+
 .clock .number4 {--rotation: 120deg; }
 .number4 .span {transform: rotate(-120deg);}
+.clock .numberM21 {--rotation: 126deg;}
+.numberM21 .span {transform: rotate(-126deg);}
+.clock .numberM22 {--rotation: 132deg;}
+.numberM22 .span {transform: rotate(-132deg);}
+.clock .numberM23 {--rotation: 138deg;}
+.numberM23 .span {transform: rotate(-138deg);}
+.clock .numberM24 {--rotation: 144deg;}
+.numberM24 .span {transform: rotate(-144deg);}
+
 .clock .number5 {--rotation: 150deg; }
 .number5 .span {transform: rotate(-150deg);}
+.clock .numberM26 {--rotation: 156deg;}
+.numberM26 .span {transform: rotate(-156deg);}
+.clock .numberM27 {--rotation: 162deg;}
+.numberM27 .span {transform: rotate(-162deg);}
+.clock .numberM28 {--rotation: 168deg;}
+.numberM28 .span {transform: rotate(-168deg);}
+.clock .numberM29 {--rotation: 174deg;}
+.numberM29 .span {transform: rotate(-174deg);}
+
 .clock .number6 {--rotation: 180deg; }
 .number6 .span {transform: rotate(-180deg);}
+.clock .numberM31 {--rotation: 186deg;}
+.numberM31 .span {transform: rotate(-186deg);}
+.clock .numberM32 {--rotation: 192deg;}
+.numberM32 .span {transform: rotate(-192deg);}
+.clock .numberM33 {--rotation: 198deg;}
+.numberM33 .span {transform: rotate(-198deg);}
+.clock .numberM34 {--rotation: 204deg;}
+.numberM34 .span {transform: rotate(-2044deg);}
+
 .clock .number7 {--rotation: 210deg; }
 .number7 .span {transform: rotate(-210deg);}
-.clock .number8 {--rotation: 240deg; }
+.clock .numberM36 {--rotation: 216deg;}
+.numberM36 .span {transform: rotate(-216deg);}
+.clock .numberM37 {--rotation: 222deg;}
+.numberM37 .span {transform: rotate(-222deg);}
+.clock .numberM38 {--rotation: 228deg;}
+.numberM38 .span {transform: rotate(-228deg);}
+.clock .numberM39 {--rotation: 234deg;}
+.numberM39 .span {transform: rotate(-234deg);}
+
+.clock .number8 {--rotation: 240deg; } /*START HERE*/
 .number8 .span {transform: rotate(-240deg);}
+.clock .numberM41 {--rotation: 245deg;}
+.numberM41 .span {transform: rotate(-246deg);}
+.clock .numberM42 {--rotation: 252deg;}
+.numberM42 .span {transform: rotate(-252deg);}
+.clock .numberM43 {--rotation: 258deg;}
+.numberM43 .span {transform: rotate(-258deg);}
+.clock .numberM44 {--rotation: 264deg;}
+.numberM44 .span {transform: rotate(-264deg);}
+
 .clock .number9 {--rotation: 270deg; }
 .number9 .span {transform: rotate(-270deg);}
+.clock .numberM46 {--rotation: 276deg;}
+.numberM46 .span {transform: rotate(-276deg);}
+.clock .numberM47 {--rotation: 282deg;}
+.numberM47 .span {transform: rotate(-282deg);}
+.clock .numberM48 {--rotation: 288deg;}
+.numberM48 .span {transform: rotate(-288deg);}
+.clock .numberM49 {--rotation: 294deg;}
+.numberM49 .span {transform: rotate(-294deg);}
+
 .clock .number10 {--rotation: 300deg; }
 .number10 .span {transform: rotate(-300deg);}
+.clock .numberM51 {--rotation: 306deg;}
+.numberM51 .span {transform: rotate(-306deg);}
+.clock .numberM52 {--rotation: 312deg;}
+.numberM52 .span {transform: rotate(-312deg);}
+.clock .numberM53 {--rotation: 318deg;}
+.numberM53 .span {transform: rotate(-318deg);}
+.clock .numberM54 {--rotation: 324deg;}
+.numberM54 .span {transform: rotate(-324deg);}
+
 .clock .number11 {--rotation: 330deg; }
 .number11 .span {transform: rotate(-330deg);}
+.clock .numberM56 {--rotation: 336deg;}
+.numberM56 .span {transform: rotate(-336deg);}
+.clock .numberM57 {--rotation: 342deg;}
+.numberM57 .span {transform: rotate(-342deg);}
+.clock .numberM58 {--rotation: 348deg;}
+.numberM58 .span {transform: rotate(-348deg);}
+.clock .numberM59 {--rotation: 354deg;}
+.numberM59 .span {transform: rotate(-354deg);}
 
 .number{
     color: white;
