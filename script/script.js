@@ -63,13 +63,13 @@ function setRotation(element, rotationRatio){
     btnReset.addEventListener('click', function watchReset(){
         clearInterval(stopTimer);
         [stopMiliSeconds, stopSeconds, stopMinutes, stopHours] = [0, 0,0,0];
-        displayTime.innerHTML = "00:00:00:00"
+        displayTime.innerHTML = "00:00:00:0"
     })
 }
 
 {
-    const btnStopwatch = document.querySelector('.btn-stopwatch')
-    const btnClock = document.querySelector('.btn-clock')
+    let btnStopwatch = document.querySelector('.btn-stopwatch')
+    let btnClock = document.querySelector('.btn-clock')
     let stopwatchBlock = document.querySelector('.stopwatch')
     let stopwatchDisplay = 0
     let clockBlock = document.querySelector('.clock')
@@ -85,33 +85,94 @@ function setRotation(element, rotationRatio){
             stopwatchDisplay = 0;
             clockBlock.style.display = 'none';
             clockDisplay = 1;
-            stopwatchIcon.classList.remove("fa-solid fa-stopwatch")
-            stopwatchIcon.classList.add("fas fa-window-close")
+            // stopwatchIcon.classList.remove("fa-solid")
+            // stopwatchIcon.classList.remove("fa-stopwatch")
+            // stopwatchIcon.classList.add("fas")
+            // stopwatchIcon.classList.add("fa-window-close")
+            btnStopwatch.innerHTML = '<i class="fa-solid fa-stopwatch" id="stopwatchIcon"></i> Stopwatch'
+            btnClock.classList.remove("active")
+            btnStopwatch.classList.add("active")
         }
         else{
             stopwatchBlock.style.display = 'none';
             stopwatchDisplay = 1;
-            stopwatchIcon.classList.add("fa-solid fa-stopwatch")
-            stopwatchIcon.classList.remove("fas fa-window-close")
+            clockBlock.style.display = 'block';
+            clockDisplay = 0
+            // stopwatchIcon.classList.add("fa-solid")
+            // stopwatchIcon.classList.add("fa-stopwatch")
+            // stopwatchIcon.classList.remove("fas")
+            // stopwatchIcon.classList.remove("fa-window-close")
+            btnStopwatch.innerHTML = '<i class="fa-solid fa-stopwatch" id="stopwatchIcon"></i> Stopwatch';
+            btnStopwatch.classList.remove("active")
+            btnClock.classList.add("active")            
         }
     })
 
     btnClock.addEventListener('click', function hideClock(){
-        if(clockDisplay === 1){
+        if(clockDisplay === 1 && stopwatchDisplay === 0){
             clockBlock.style.display = 'block';
             clockDisplay = 0;
             stopwatchBlock.style.display = 'none';
             stopwatchDisplay = 1;
-            clockIcon.classList.remove("fa-solid fa-clock")
-            clockIcon.classList.add("fas fa-window-close")
+            btnStopwatch.innerHTML = '<i class="fa-solid fa-stopwatch active" id="stopwatchIcon"></i> Stopwatch';
+            btnClock.classList.add("active")
+            btnStopwatch.classList.remove("active")
         }
-        else{
-            clockBlock.style.display = 'none';
-            clockDisplay = 1;
-            clockIcon.classList.add("fa-solid fa-clock")
-            clockIcon.classList.remove("fas fa-window-close")
-        }
+        // else{
+        //     clockBlock.style.display = 'none';
+        //     clockDisplay = 1;
+        //     clockIcon.classList.add("fa-solid fa-clock")
+        //     clockIcon.classList.remove("fas fa-window-close")
+        // }
     })
 }
 
+{
+    function updateBackground(){
+        let currentHour = new Date().getHours();
+        let container = document.querySelector('body');
+        let dayColour = 'linear-gradient(to top, #0000FF, #1a11e6, #2210dd, #F2950D)';
+        let lateColour = 'linear-gradient(to bottom, #0000FF, #4000c0, #808080)';
+        let nightColour = 'linear-gradient(to top, #000040, #72787f)';
+        let earlyColour = 'linear-gradient(to bottom, #000040, #4d32b3, #b3744d)';
+        let clock = document.querySelector('.clock');
+        let moonColour = '#848c8e';
+        let sunColour = '#FDB813';
+        // let m = new Date().getMinutes();
+
+        if(currentHour >= 8 && currentHour < 17) {
+            container.style.transition = "all 10s";
+            clock.style.transition = "all 10s";
+            container.style.backgroundImage = dayColour;
+            clock.style.backgroundColor = sunColour
+        }
+        else if(currentHour >= 17 && currentHour <19){
+            container.style.transition = "all 10s";
+            clock.style.transition = "all 10s";
+            container.style.backgroundImage = lateColour;
+            clock.style.backgroundColor = moonColour;
+        }
+        else if(currentHour >= 19 && currentHour <= 23){
+            container.style.transition = "all 10s";
+            clock.style.transition = "all 10s";
+            container.style.backgroundImage = nightColour;
+            clock.style.backgroundColor = moonColour;
+        }
+        else if(currentHour >= 0 && currentHour <5){
+            container.style.transition = "all 10s";
+            clock.style.transition = "all 10s";
+            container.style.backgroundImage = nightColour;
+            clock.style.backgroundColor = moonColour;
+        }
+        else if(currentHour >= 5 && currentHour < 8){
+            container.style.transition = "all 10s";
+            clock.style.transition = "all 10s";
+            container.style.backgroundImage = earlyColour;
+            clock.style.backgroundColor = sunColour
+        }
+    }
+}
+
 setClock()
+updateBackground()
+setInterval(updateBackground, 30000)
