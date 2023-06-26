@@ -68,15 +68,108 @@ function setRotation(element, rotationRatio){
 }
 
 {
+    const semicircles = document.querySelectorAll('.semicircle');
+    const timer = document.querySelector('.timer');
+
+    let hr = document.querySelector('.input-hour').value;
+    if(hr === isNaN){
+        hr = 0;
+    }
+    let min = document.querySelector('.input-minute').value;
+    if(min === isNaN){
+        hr = 0;
+    }
+    let sec = document.querySelector('.input-second').value;
+    if(sec === isNaN){
+        sec = 10;
+    }
+
+    const btnStartTimer = document.querySelector('.start-timer');
+
+    const hours = hr * 3600000;
+    const minutes = min * 60000;
+    const seconds = sec * 1000;
+    const setTime = hours + minutes + seconds;
+    const startTime = Date.now();
+    const futureTime = startTime + setTime;
+
+    const timerLoop = setInterval(countDownTimer);
+    countDownTimer();
+
+    btnStartTimer.addEventListener('click',function() {
+    })
+
+    function countDownTimer() {
+        const currentTime = Date.now();
+        const remainingTime = futureTime - currentTime;
+        const angle = (remainingTime / setTime) * 360;
+
+        if(angle > 180){
+            semicircles[2].style.display = 'none';
+            semicircles[0].style.transform = 'rotate(180deg)';
+            semicircles[1].style.transform = `rotate(${angle}deg)`;
+        }else{
+            semicircles[2].style.display = 'block';
+            semicircles[0].style.transform = `rotate(${angle}deg)`;
+            semicircles[1].style.transform = `rotate(${angle}deg)`;
+        }
+
+        const hrs = Math.floor((remainingTime / (1000 * 60 *60))%24).toLocaleString('en-ZA', {minimumIntegerDigits: 2, useGrouping: false});
+        const mins = Math.floor((remainingTime / (1000 * 60 ))%60).toLocaleString('en-ZA', {minimumIntegerDigits: 2, useGrouping: false});
+        const secs = Math.floor((remainingTime / (1000))%60).toLocaleString('en-ZA', {minimumIntegerDigits: 2, useGrouping: false});
+
+        timer.innerHTML = `
+        <div class="timer-nr-container">
+        <div>${hrs}</div>
+        <div class="colon">:</div>
+        <div>${mins}</div>
+        <div class="colon">:</div>
+        <div>${secs}</div>
+        </div>
+        `;
+        
+        if(remainingTime <= 6000){
+            semicircles[1].style.backgroundColor = 'red';
+            semicircles[0].style.backgroundColor = 'red';
+            timer.style.color = 'red';
+        }
+        
+        if(remainingTime < 0){
+            clearInterval(timerLoop);
+
+            semicircles[0].style.display = 'none';
+            semicircles[1].style.display = 'none';
+            semicircles[2].style.display = 'none';
+            
+            timer.innerHTML = `
+            <div class="timer-nr-container">
+            <div>00</div>
+            <div class="colon">:</div>
+            <div>00</div>
+            <div class="colon">:</div>
+            <div>00</div>
+            </div>
+            `;
+
+            timer.style.color = "lightgray";
+        }
+    }
+}
+
+{
     let btnStopwatch = document.querySelector('.btn-stopwatch')
     let btnClock = document.querySelector('.btn-clock')
+    let btnTimer = document.querySelector('.btn-timer')
     let stopwatchBlock = document.querySelector('.stopwatch')
     let stopwatchDisplay = 0
     let clockBlock = document.querySelector('.clock')
     let clockDisplay = 0
+    let timerBlock = document.querySelectorAll('.timer-center')
+    let timerDisplay = 0
 
     let stopwatchIcon = document.querySelector('#stopwatchIcon')
     let clockIcon = document.querySelector('#clockIcon')
+    let timerIcon = document.querySelector('#timerIcon')
 
 
     btnStopwatch.addEventListener('click', function hideStopwatch(){
@@ -85,13 +178,21 @@ function setRotation(element, rotationRatio){
             stopwatchDisplay = 0;
             clockBlock.style.display = 'none';
             clockDisplay = 1;
-            // stopwatchIcon.classList.remove("fa-solid")
-            // stopwatchIcon.classList.remove("fa-stopwatch")
-            // stopwatchIcon.classList.add("fas")
-            // stopwatchIcon.classList.add("fa-window-close")
-            btnStopwatch.innerHTML = '<i class="fa-solid fa-stopwatch" id="stopwatchIcon"></i> Stopwatch'
+            timerBlock[0].style.display = 'none';
+            timerBlock[1].style.display = 'none';
+            timerBlock[2].style.display = 'none';
+            timerBlock[3].style.display = 'none';
+            timerDisplay = 1;
             btnClock.classList.remove("active")
+            btnTimer.classList.remove("active")
             btnStopwatch.classList.add("active")
+            stopwatchIcon.classList.remove("fas")
+            // stopwatchIcon.classList.remove("fa-stopwatch")
+            stopwatchIcon.classList.add("fa-solid")
+            clockIcon.classList.remove("fas")
+            clockIcon.classList.add("far")
+            timerIcon.classList.remove("fas")
+            timerIcon.classList.add("far")
         }
         else{
             stopwatchBlock.style.display = 'none';
@@ -102,28 +203,64 @@ function setRotation(element, rotationRatio){
             // stopwatchIcon.classList.add("fa-stopwatch")
             // stopwatchIcon.classList.remove("fas")
             // stopwatchIcon.classList.remove("fa-window-close")
-            btnStopwatch.innerHTML = '<i class="fa-solid fa-stopwatch" id="stopwatchIcon"></i> Stopwatch';
+            // btnStopwatch.innerHTML = '<i class="fa-solid fa-stopwatch" id="stopwatchIcon"></i> Stopwatch';
             btnStopwatch.classList.remove("active")
             btnClock.classList.add("active")            
         }
     })
 
     btnClock.addEventListener('click', function hideClock(){
-        if(clockDisplay === 1 && stopwatchDisplay === 0){
+        if(clockDisplay === 1){
             clockBlock.style.display = 'block';
             clockDisplay = 0;
             stopwatchBlock.style.display = 'none';
             stopwatchDisplay = 1;
-            btnStopwatch.innerHTML = '<i class="fa-solid fa-stopwatch active" id="stopwatchIcon"></i> Stopwatch';
+            timerBlock[0].style.display = 'none';
+            timerBlock[1].style.display = 'none';
+            timerBlock[2].style.display = 'none';
+            timerBlock[3].style.display = 'none';
+            timerDisplay = 1;
             btnClock.classList.add("active")
             btnStopwatch.classList.remove("active")
+            btnTimer.classList.remove("active")
+            clockIcon.classList.remove("far")
+            clockIcon.classList.add("fas")
+            stopwatchIcon.classList.remove("fa-solid")
+            stopwatchIcon.classList.add("fas")
+            timerIcon.classList.remove("fas")
+            timerIcon.classList.add("far")
         }
-        // else{
-        //     clockBlock.style.display = 'none';
-        //     clockDisplay = 1;
-        //     clockIcon.classList.add("fa-solid fa-clock")
-        //     clockIcon.classList.remove("fas fa-window-close")
-        // }
+        else{
+            clockblock.style.display = 'none';
+            clockdisplay = 1;
+            stopwatchBlock.style.display = 'block';
+            stopwatchDisplay = 0;
+            clockicon.classlist.add("fa-solid fa-clock")
+            clockicon.classlist.remove("fas fa-window-close")
+        }
+    })
+
+    btnTimer.addEventListener('click', function hideTimer(){
+        if(timerDisplay === 1){
+            timerBlock[0].style.display = 'flex';
+            timerBlock[1].style.display = 'flex';
+            timerBlock[2].style.display = 'flex';
+            timerBlock[3].style.display = 'flex';
+            timerDisplay = 0;
+            clockBlock.style.display = 'none';
+            clockDisplay = 1;
+            stopwatchBlock.style.display = 'none';
+            stopwatchDisplay = 1;
+            btnTimer.classList.add("active")
+            btnClock.classList.remove("active")
+            btnStopwatch.classList.remove("active")
+            clockIcon.classList.remove("fas")
+            clockIcon.classList.add("far")
+            stopwatchIcon.classList.remove("fa-solid")
+            stopwatchIcon.classList.add("fas")
+            timerIcon.classList.remove("far")
+            timerIcon.classList.add("fas")
+        }
     })
 }
 

@@ -4,22 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="style/style.css" rel="stylesheet">
-    <link href="style/style2.css" rel="stylesheet">
+    <link href="style/modal.css" rel="stylesheet">
+    <script src="script/modal.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Clock</title>
 </head>
 <body>
     <div class="tab">
         <button class="btn-clock active">
-            <i class="fa-solid fa-clock" id="clockIcon"></i>
+            <i class="fas fa-clock" id="clockIcon"></i>
             Clock
         </button>
         <button class="btn-stopwatch">
-            <i class="fa-solid fa-stopwatch" id="stopwatchIcon"></i>
+            <i class="fas fa-stopwatch" id="stopwatchIcon"></i>
             Stopwatch
         </button>
         <button class="btn-timer">
-            <i class="fas fa-hourglass" id="timerIcon"></i>
+            <i class="far fa-hourglass" id="timerIcon"></i>
             Timer
         </button>
     </div>
@@ -102,9 +103,38 @@
                 <div class="number number12 main-nr"><div class="span">12</div></div>
             </div>
             <br/>
+            <div class="timer-container timer-center">                
+                <div class="timer-circle timer-center">
+                    <div class="semicircle"></div>
+                    <div class="semicircle"></div>
+                    <div class="semicircle"></div>
+                    <div class="outer-circle"></div>
+                </div>
+                <div class="timer-container-2 timer-center">
+                    <div class="timer timer-center">
+                        
+                    </div>
+                </div>
+                
+                <span class="modal-link open-input-timer" style="color: white;">Set Timer</span>
+            </div>
+            
+            <div class="input-timer-wrapper">
+                <div class="input-timer-content">
+                    <form class="input-form">
+                        <input type="number" class="input-box input-hour" placeholder="hrs" value="0">
+                        <input type="number" class="input-box input-minute" placeholder="mins" value="0">
+                        <input type="number" class="input-box input-second" placeholder="secs" value="0">
+                        <input type="submit" class="input-button start-timer" value="start"/>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
     <script src="script/script.js"></script>
     <script src="https://kit.fontawesome.com/8c19ff9723.js" crossorigin="anonymous"></script>
+    <script>
+        modal(".open-input-timer", ".input-timer-wrapper", ".input-timer-content", true)
+    </script>
 </body>
 </html>
