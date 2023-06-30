@@ -29,14 +29,14 @@
             <br/>
             <div class="stopwatch">
                 <h1 id="displayTime">00:00:00:0</h1>
-                <div class="buttons">
-                    <button class="btns btn-stop"><i class="fa fa-stop-circle"></i></button>
+                <div class="buttons stopwatch-buttons">
+                    <button class="btns btn-stop" alt="pause"><i class="fa fa-stop-circle"></i></button>
                     <button class="btns btn-start"><i class="fa fa-play-circle"></i></button>
                     <button class="btns btn-reset"><i class="fa fa-undo"></i></button>
                 </div>
             </div>
             <br/>
-            <div class="clock">
+            <div class="clock analogue">
                 <div class="hand hour" id="hour-hand"></div>
                 <div class="hand minute" id="minute-hand"></div>
                 <div class="hand second" id="second-hand"></div>
@@ -112,29 +112,34 @@
                 </div>
                 <div class="timer-container-2 timer-center">
                     <div class="timer timer-center">
-                        
+                        <span id="countdown-timer" class="timer-nr-container">00:00:00</span>
                     </div>
                 </div>
                 
                 <span class="modal-link open-input-timer" style="color: white;">Set Timer</span>
+                <div class="buttons timer-buttons">
+                    <button onclick="pauseTimer()" class="input-button pause-timer">Pause</button>
+                    <button onclick="resumeTimer()" class="input-button resume-timer">Resume</button>
+                    <button onclick="resetTimer()" class="input-button reset-timer">Reset</button>
+                </div>
+                
             </div>
             
             <div class="input-timer-wrapper">
                 <div class="input-timer-content">
-                    <form class="input-form">
-                        <input type="number" class="input-box input-hour" placeholder="hrs" value="0">
-                        <input type="number" class="input-box input-minute" placeholder="mins" value="0">
-                        <input type="number" class="input-box input-second" placeholder="secs" value="0">
-                        <input type="submit" class="input-button start-timer" value="start"/>
+                    <form class="input-form" onsubmit="event.preventDefault(); startTimer();">
+                        <input type="number" class="input-box input-hour" id="input-hour" placeholder="hrs">
+                        <input type="number" class="input-box input-minute" id="input-minute" placeholder="mins">
+                        <input type="number" class="input-box input-second" id="input-second" placeholder="secs">
+                        <input type="submit" class="input-button start-timer" value="start">
                     </form>
                 </div>
             </div>
-        </div>
     </div>
     <script src="script/script.js"></script>
     <script src="https://kit.fontawesome.com/8c19ff9723.js" crossorigin="anonymous"></script>
     <script>
-        modal(".open-input-timer", ".input-timer-wrapper", ".input-timer-content", true)
+        modal(".open-input-timer", ".input-timer-wrapper", ".input-timer-content", ".start-timer", true)
     </script>
 </body>
 </html>

@@ -67,105 +67,84 @@ function setRotation(element, rotationRatio){
     })
 }
 
-{
-    const semicircles = document.querySelectorAll('.semicircle');
-    const timer = document.querySelector('.timer');
+{ //TIMER CODE
+    const btnStartCountdown = document.querySelector('.start-timer');
+    btnStartCountdown.classList.add('close-modal')
+    function startTimer() {
+        let inputHour = parseInt(document.getElementById("input-hour").value) || 0;
+        let inputMinute = parseInt(document.getElementById("input-minute").value) || 0;
+        let inputSecond = parseInt(document.getElementById("input-second").value) || 0;
 
-    let hr = document.querySelector('.input-hour').value;
-    if(hr === isNaN){
-        hr = 0;
-    }
-    let min = document.querySelector('.input-minute').value;
-    if(min === isNaN){
-        hr = 0;
-    }
-    let sec = document.querySelector('.input-second').value;
-    if(sec === isNaN){
-        sec = 10;
-    }
+        clearInputs(inputHour, inputMinute, inputSecond);
 
-    const btnStartTimer = document.querySelector('.start-timer');
+        let totalSeconds = (inputHour * 3600) + (inputMinute * 60) + inputSecond;
 
-    const hours = hr * 3600000;
-    const minutes = min * 60000;
-    const seconds = sec * 1000;
-    const setTime = hours + minutes + seconds;
-    const startTime = Date.now();
-    const futureTime = startTime + setTime;
+        const countdownTimer = document.getElementById("countdown-timer");
+        const semicircles = document.getElementsByClassName("semicircle");
 
-    const timerLoop = setInterval(countDownTimer);
-    countDownTimer();
+        let intervalHandle = setInterval(function() {
+            let hours = Math.floor(totalSeconds / 3600);
+            let minutes = Math.floor((totalSeconds % 3600) / 60);
+            let seconds = totalSeconds % 60;
 
-    btnStartTimer.addEventListener('click',function() {
-    })
+            hours = hours.toString().padStart(2, "0");
+            minutes = minutes.toString().padStart(2, "0");
+            seconds = seconds.toString().padStart(2, "0");
 
-    function countDownTimer() {
-        const currentTime = Date.now();
-        const remainingTime = futureTime - currentTime;
-        const angle = (remainingTime / setTime) * 360;
+            countdownTimer.innerHTML = hours + ":" + minutes + ":" + seconds;
+            if (totalSeconds < 6) {
+                for (var i = 0; i < semicircles.length; i++) {
+                    document.querySelector('#countdown-timer').style.color = "red";
+                    document.querySelector('.timer-nr-container').classList.add("blink-content");
+                    document.querySelector('.timer-buttons').style.display = "block";
+                }
+            } else {
+                for (var i = 0; i < semicircles.length; i++) {
+                    document.querySelector('#countdown-timer').style.color = "white";
+                    document.querySelector('.timer-buttons').style.display = "block";
+                }
+            }
 
-        if(angle > 180){
-            semicircles[2].style.display = 'none';
-            semicircles[0].style.transform = 'rotate(180deg)';
-            semicircles[1].style.transform = `rotate(${angle}deg)`;
-        }else{
-            semicircles[2].style.display = 'block';
-            semicircles[0].style.transform = `rotate(${angle}deg)`;
-            semicircles[1].style.transform = `rotate(${angle}deg)`;
-        }
+            if (totalSeconds === 0) {
+                clearInterval(intervalHandle);
+                document.querySelector('#countdown-timer').style.color = "white";
+                document.querySelector('.timer-buttons').style.display = "none";
+            }
 
-        const hrs = Math.floor((remainingTime / (1000 * 60 *60))%24).toLocaleString('en-ZA', {minimumIntegerDigits: 2, useGrouping: false});
-        const mins = Math.floor((remainingTime / (1000 * 60 ))%60).toLocaleString('en-ZA', {minimumIntegerDigits: 2, useGrouping: false});
-        const secs = Math.floor((remainingTime / (1000))%60).toLocaleString('en-ZA', {minimumIntegerDigits: 2, useGrouping: false});
-
-        timer.innerHTML = `
-        <div class="timer-nr-container">
-        <div>${hrs}</div>
-        <div class="colon">:</div>
-        <div>${mins}</div>
-        <div class="colon">:</div>
-        <div>${secs}</div>
-        </div>
-        `;
+            totalSeconds--;
+        }, 1000);
         
-        if(remainingTime <= 6000){
-            semicircles[1].style.backgroundColor = 'red';
-            semicircles[0].style.backgroundColor = 'red';
-            timer.style.color = 'red';
-        }
-        
-        if(remainingTime < 0){
-            clearInterval(timerLoop);
+    }
 
-            semicircles[0].style.display = 'none';
-            semicircles[1].style.display = 'none';
-            semicircles[2].style.display = 'none';
-            
-            timer.innerHTML = `
-            <div class="timer-nr-container">
-            <div>00</div>
-            <div class="colon">:</div>
-            <div>00</div>
-            <div class="colon">:</div>
-            <div>00</div>
-            </div>
-            `;
+    function clearInputs(tHour, tMinute, tSecond){
+        tHour = 0;
+        tMinute = 0;
+        tSecond = 0;
+    }
 
-            timer.style.color = "lightgray";
-        }
+    function pauseTimer() {
+        isPaused = true;
+        let countdownTimer = document.getElementById("countdown-timer");
+        countdownTimer.classList.add("paused-timer");
+    }
+
+    function resumeTimer() {
+        isPaused = false;
+        let countdownTimer = document.getElementById("countdown-timer");
+        countdownTimer.classList.remove("paused-timer");
     }
 }
 
-{
+{ //NAV TAB CONTROL JS CODE
     let btnStopwatch = document.querySelector('.btn-stopwatch')
     let btnClock = document.querySelector('.btn-clock')
     let btnTimer = document.querySelector('.btn-timer')
     let stopwatchBlock = document.querySelector('.stopwatch')
-    let stopwatchDisplay = 0
+    let stopwatchDisplay = 1
     let clockBlock = document.querySelector('.clock')
     let clockDisplay = 0
     let timerBlock = document.querySelectorAll('.timer-center')
-    let timerDisplay = 0
+    let timerDisplay = 1
 
     let stopwatchIcon = document.querySelector('#stopwatchIcon')
     let clockIcon = document.querySelector('#clockIcon')
@@ -194,19 +173,19 @@ function setRotation(element, rotationRatio){
             timerIcon.classList.remove("fas")
             timerIcon.classList.add("far")
         }
-        else{
-            stopwatchBlock.style.display = 'none';
-            stopwatchDisplay = 1;
-            clockBlock.style.display = 'block';
-            clockDisplay = 0
-            // stopwatchIcon.classList.add("fa-solid")
-            // stopwatchIcon.classList.add("fa-stopwatch")
-            // stopwatchIcon.classList.remove("fas")
-            // stopwatchIcon.classList.remove("fa-window-close")
-            // btnStopwatch.innerHTML = '<i class="fa-solid fa-stopwatch" id="stopwatchIcon"></i> Stopwatch';
-            btnStopwatch.classList.remove("active")
-            btnClock.classList.add("active")            
-        }
+        // else{
+        //     stopwatchBlock.style.display = 'none';
+        //     stopwatchDisplay = 1;
+        //     clockBlock.style.display = 'block';
+        //     clockDisplay = 0
+        //     // stopwatchIcon.classList.add("fa-solid")
+        //     // stopwatchIcon.classList.add("fa-stopwatch")
+        //     // stopwatchIcon.classList.remove("fas")
+        //     // stopwatchIcon.classList.remove("fa-window-close")
+        //     // btnStopwatch.innerHTML = '<i class="fa-solid fa-stopwatch" id="stopwatchIcon"></i> Stopwatch';
+        //     btnStopwatch.classList.remove("active")
+        //     btnClock.classList.add("active")            
+        // }
     })
 
     btnClock.addEventListener('click', function hideClock(){
@@ -230,14 +209,14 @@ function setRotation(element, rotationRatio){
             timerIcon.classList.remove("fas")
             timerIcon.classList.add("far")
         }
-        else{
-            clockblock.style.display = 'none';
-            clockdisplay = 1;
-            stopwatchBlock.style.display = 'block';
-            stopwatchDisplay = 0;
-            clockicon.classlist.add("fa-solid fa-clock")
-            clockicon.classlist.remove("fas fa-window-close")
-        }
+        // else{
+        //     clockblock.style.display = 'none';
+        //     clockdisplay = 1;
+        //     stopwatchBlock.style.display = 'block';
+        //     stopwatchDisplay = 0;
+        //     clockicon.classlist.add("fa-solid fa-clock")
+        //     clockicon.classlist.remove("fas fa-window-close")
+        // }
     })
 
     btnTimer.addEventListener('click', function hideTimer(){
@@ -264,7 +243,7 @@ function setRotation(element, rotationRatio){
     })
 }
 
-{
+{//DYNAMIC BACKGROUND JS CODE
     function updateBackground(){
         let currentHour = new Date().getHours();
         let container = document.querySelector('body');
@@ -273,6 +252,8 @@ function setRotation(element, rotationRatio){
         let nightColour = 'linear-gradient(to top, #000040, #72787f)';
         let earlyColour = 'linear-gradient(to bottom, #000040, #4d32b3, #b3744d)';
         let clock = document.querySelector('.clock');
+        let timer = document.querySelector('.outer-circle');
+        let stopwatch = document.querySelector('.stopwatch');
         let moonColour = '#848c8e';
         let sunColour = '#FDB813';
         // let m = new Date().getMinutes();
@@ -282,30 +263,40 @@ function setRotation(element, rotationRatio){
             clock.style.transition = "all 10s";
             container.style.backgroundImage = dayColour;
             clock.style.backgroundColor = sunColour
+            timer.style.backgroundColor = sunColour
+            stopwatch.style.backgroundColor = sunColour
         }
         else if(currentHour >= 17 && currentHour <19){
             container.style.transition = "all 10s";
             clock.style.transition = "all 10s";
             container.style.backgroundImage = lateColour;
             clock.style.backgroundColor = moonColour;
+            timer.style.backgroundColor = moonColour;
+            stopwatch.style.backgroundColor = moonColour;
         }
         else if(currentHour >= 19 && currentHour <= 23){
             container.style.transition = "all 10s";
             clock.style.transition = "all 10s";
             container.style.backgroundImage = nightColour;
             clock.style.backgroundColor = moonColour;
+            timer.style.backgroundColor = moonColour;
+            stopwatch.style.backgroundColor = moonColour;
         }
         else if(currentHour >= 0 && currentHour <5){
             container.style.transition = "all 10s";
             clock.style.transition = "all 10s";
             container.style.backgroundImage = nightColour;
             clock.style.backgroundColor = moonColour;
+            timer.style.backgroundColor = moonColour;
+            stopwatch.style.backgroundColor = moonColour;
         }
         else if(currentHour >= 5 && currentHour < 8){
             container.style.transition = "all 10s";
             clock.style.transition = "all 10s";
             container.style.backgroundImage = earlyColour;
-            clock.style.backgroundColor = sunColour
+            clock.style.backgroundColor = sunColour;
+            timer.style.backgroundColor = sunColour;
+            stopwatch.style.backgroundColor = sunColour;
         }
     }
 }

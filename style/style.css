@@ -35,6 +35,8 @@ body{
 }
 
 .input-button {
+    text-align: center;
+    /* padding-top: 12px; */
     width: 85px;
     height: 45px;
     background-color: gray;
@@ -43,6 +45,17 @@ body{
     cursor: pointer;
     font-size: 17px;
     color: white;
+}
+
+.timer-buttons{
+    display: none;
+    position: absolute;
+    bottom: 0;
+    z-index: 10;
+}
+
+.input-button:hover {
+    opacity: 0.5;
 }
 
 .tab button.active{
@@ -77,8 +90,8 @@ body{
 
 .clock{
     display: block;
-    width: 550px;
-    height: 550px;
+    width: 450px;
+    height: 450px;
     background-color: rgba(0, 0, 0, .7);
     border-radius: 50%;
     box-shadow: white 2px 5px 12px;
@@ -89,12 +102,13 @@ body{
 
 .stopwatch{
     display: none;
-    width: 55vw;
-    height: 45vh;
+    width: 450px;
+    height: 450px;
+    border-radius: 50%;
     background-color: rgba(0, 0, 0, .7);
     box-shadow: white 2px 5px 12px;
     text-align: center;
-    padding: 40px;
+    padding-top: 15%;
     margin-left: auto;
     margin-right: auto;
 }
@@ -106,8 +120,11 @@ body{
     font-weight: 300;
 }
 
-.buttons{
+.stopwatch-buttons{
     display: flex;
+}
+
+.buttons{
     align-items: center;
     justify-content: center;
 }
@@ -326,7 +343,7 @@ body{
 
 .timer-container{
     position: relative;
-    margin-top: auto;
+    margin-top: -4%;
     margin-bottom: auto;
     padding: 40px;
     margin-left: auto;
@@ -336,7 +353,7 @@ body{
 
 .modal-link{
     position: absolute;
-    bottom: 0;
+    bottom: -5%;
 }
 
 .input-timer-wrapper, .input-timer-content{
@@ -352,9 +369,8 @@ body{
 }
 
 .timer-circle {
-    width: 350px;
-    height: 350px;
-    background-color: white;
+    width: 450px;
+    height: 450px;
     box-shadow: white 2px 5px 12px;
     background-color: #ddd;
     border-radius: 50%;
@@ -372,7 +388,7 @@ body{
     transform-origin: right center;
 }
 
-.semicircle:nth-child(1){
+/* .semicircle:nth-child(1){
     background-color: red;
     z-index: 2;
 }
@@ -386,13 +402,18 @@ body{
     background-color: white;
     background-color: #ddd;
     z-index: 4;
+} */
+
+.red-timer {
+    color: #ff0000; /* Red color */
+}
+.paused-timer {
+    color: #0000ff; /* Blue color */
 }
 
 .outer-circle{
-    width: 345px;
-    height: 345px;
-    background-color: black;
-    background-color: white;
+    width: 445px;
+    height: 445px;
     border-radius: 50%;
     z-index: 5;
 }
@@ -410,7 +431,8 @@ body{
 }
 
 
-.timer div{
+.timer-nr-container{
+    color: white;
     font-size: 70px;
     font-weight: 100;
     width: 80px;
@@ -464,3 +486,13 @@ body{
     opacity: 0;
     transition: opacity 0s 1s;
 } */
+
+.blink-content{
+    animation: blinker 1s linea infinite;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }    
+}
